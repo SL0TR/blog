@@ -1,0 +1,17 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.site-card-border-less-wrapper {
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.1);
+  padding: 5rem;
+}
