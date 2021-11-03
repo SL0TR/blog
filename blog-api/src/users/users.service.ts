@@ -31,6 +31,7 @@ export class UsersService {
       .find(filter)
       .skip(skip)
       .limit(limit)
+      .select('-password')
       .exec();
     response.success = true;
 
@@ -49,6 +50,7 @@ export class UsersService {
   async update(_id: Types.ObjectId, updateUserDto: UpdateUserDto) {
     const updatedUser = await this.userModel
       .findOneAndUpdate({ _id }, updateUserDto, { new: true })
+      .select('-password')
       .exec();
     if (!updatedUser) {
       throw new NotFoundException();
@@ -58,7 +60,10 @@ export class UsersService {
   }
 
   async remove(filterUserDto: FilterUserDto) {
-    const user = await this.userModel.findOneAndDelete(filterUserDto).exec();
+    const user = await this.userModel
+      .findOneAndDelete(filterUserDto)
+      .select('-password')
+      .exec();
     if (!user) {
       throw new NotFoundException();
     }

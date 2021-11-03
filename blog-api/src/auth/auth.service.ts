@@ -30,11 +30,7 @@ export class AuthService {
   }
 
   async register(createUserDto: CreateUserDto) {
-    const saltOrRounds = 10;
-    const hashPassword = await bcrypt.hash(
-      createUserDto.password,
-      saltOrRounds,
-    );
+    const hashPassword = await this.getPasswordHash(createUserDto.password);
 
     const newUser = await this.usersService.create({
       ...createUserDto,
@@ -52,5 +48,10 @@ export class AuthService {
       username: user.username,
       roles: user.roles,
     };
+  }
+
+  async getPasswordHash(password: string) {
+    const saltOrRounds = 10;
+    return await bcrypt.hash(password, saltOrRounds);
   }
 }
