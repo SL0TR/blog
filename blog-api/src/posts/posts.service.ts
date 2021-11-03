@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreatePost, CreatePostDto } from './dto/create-post.dto';
+import { CreatePost } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Post } from './entities/post.entity';
 import { FilterPostDto, QueryPostDto } from './dto/filter-post.dto';
 import { QueryResponseDTO } from '../common/dto/query-response.dto';
+
 @Injectable()
 export class PostsService {
   constructor(
@@ -20,7 +21,6 @@ export class PostsService {
     const response = new QueryResponseDTO<Post>();
     const { limit = 100, offset, ...rest } = queryPostDto;
     const filter = { ...rest } || {};
-    const skip = offset - 1 || 0;
 
     response.totalCount = await this.postModel.countDocuments({
       ...filter,
@@ -28,7 +28,7 @@ export class PostsService {
 
     response.data = await this.postModel
       .find(filter)
-      .skip(skip)
+      .skip(offset)
       .limit(limit)
       .exec();
     response.success = true;
