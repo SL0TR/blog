@@ -1,7 +1,5 @@
-import { Transform } from 'class-transformer';
-import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 import { Types } from 'mongoose';
-import * as sanitizeHtml from 'sanitize-html';
 
 export class CreatePostDto {
   @IsString()
@@ -9,14 +7,14 @@ export class CreatePostDto {
   title: string;
 
   @IsUrl()
+  @IsOptional()
   thumbnailUrl?: string;
 
   @IsString()
   @IsNotEmpty()
-  @Transform((value) => sanitizeHtml(value))
   body: string;
+}
 
-  @IsString()
-  @IsNotEmpty()
+export class CreatePost extends CreatePostDto {
   author: Types.ObjectId;
 }

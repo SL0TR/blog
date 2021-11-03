@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
+import { CreatePost, CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -12,8 +12,8 @@ export class PostsService {
     @InjectModel(Post.name) private readonly postModel: Model<Post>,
   ) {}
 
-  async create(createPostDto: CreatePostDto) {
-    return await this.postModel.create(createPostDto);
+  async create(createPost: CreatePost) {
+    return await this.postModel.create(createPost);
   }
 
   async findAll(queryPostDto: QueryPostDto) {
@@ -45,9 +45,17 @@ export class PostsService {
     return post;
   }
 
-  async update(_id: Types.ObjectId, updatePostDto: UpdatePostDto) {
+  async update({
+    _id,
+    updatePostDto,
+    author,
+  }: {
+    _id: Types.ObjectId;
+    updatePostDto: UpdatePostDto;
+    author: Types.ObjectId;
+  }) {
     const updatedPost = await this.postModel
-      .findOneAndUpdate({ _id }, updatePostDto, { new: true })
+      .findOneAndUpdate({ _id, author }, updatePostDto, { new: true })
       .exec();
     if (!updatedPost) {
       throw new NotFoundException();
