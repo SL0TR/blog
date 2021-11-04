@@ -21,6 +21,7 @@ function Post({ postTypeProp = "create" }) {
   const { currentUser } = useGLobalStateContext();
   const [isPostAuthor, setIsPostAuthor] = useState(false);
   const isViewOnlyPost = postType === "view";
+  const isUpdatePost = postType === "update";
   const history = useHistory();
 
   const { id: postId } = useParams();
@@ -97,12 +98,10 @@ function Post({ postTypeProp = "create" }) {
       {isPostAuthor && (
         <Col span={20} align="middle">
           <Button
-            type="ghost"
-            onClick={() =>
-              setPostType((pS) => (pS === "update" ? "view" : "update"))
-            }
+            type={isUpdatePost ? "ghost" : "primary"}
+            onClick={() => setPostType(isUpdatePost ? "view" : "update")}
           >
-            {postType === "update" ? "Cancel Edit" : "Edit Post"}
+            {isUpdatePost ? "Cancel Edit" : "Edit Post"}
           </Button>
         </Col>
       )}
