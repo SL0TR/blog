@@ -21,7 +21,6 @@ export class UsersService {
     const response = new QueryResponseDTO<User>();
     const { limit = 100, offset, ...rest } = queryUserDto;
     const filter = { ...rest } || {};
-    const skip = offset - 1 || 0;
 
     response.totalCount = await this.userModel.countDocuments({
       ...filter,
@@ -29,7 +28,7 @@ export class UsersService {
 
     response.data = await this.userModel
       .find(filter)
-      .skip(skip)
+      .skip(offset)
       .limit(limit)
       .select('-password')
       .exec();

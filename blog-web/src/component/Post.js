@@ -127,7 +127,7 @@ function Post({ postTypeProp = "create" }) {
         )}
       </Col>
       <Col span={20}>
-        {!postType === "view" && (
+        {postType !== "view" && (
           <Typography.Paragraph>*Body</Typography.Paragraph>
         )}
 

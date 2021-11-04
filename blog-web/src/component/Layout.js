@@ -20,12 +20,13 @@ function Layout({ children }) {
               theme="dark"
               mode="horizontal"
             >
-              <Menu.Item key={`/${PRIVATE_ROUTE.POSTS}`}>
-                <NavLink to={`/${PRIVATE_ROUTE.POSTS}`}>Posts</NavLink>
-              </Menu.Item>
               <Menu.Item key={`/${PRIVATE_ROUTE.AUTHORS}`}>
                 <NavLink to={`/${PRIVATE_ROUTE.AUTHORS}`}>Authors</NavLink>
               </Menu.Item>
+              <Menu.Item key={`/${PRIVATE_ROUTE.POSTS}`}>
+                <NavLink to={`/${PRIVATE_ROUTE.POSTS}`}>Posts</NavLink>
+              </Menu.Item>
+
               <Menu.Item key={`/${PRIVATE_ROUTE.CREATE}`}>
                 <NavLink to={`/${PRIVATE_ROUTE.CREATE}`}>Create</NavLink>
               </Menu.Item>
