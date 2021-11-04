@@ -6,13 +6,13 @@ export type PostDocument = Post & Document;
 
 @Schema({ timestamps: true })
 export class Post {
-  _id: Types.ObjectId;
+  _id?: Types.ObjectId;
 
   @Prop({ required: true })
   title: string;
 
   @Prop()
-  thumbnailUrl: string;
+  thumbnailUrl?: string;
 
   @Prop({ required: true })
   body: string;
@@ -22,7 +22,7 @@ export class Post {
     ref: User.name,
     required: true,
   })
-  author: Types.ObjectId;
+  author?: Types.ObjectId;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

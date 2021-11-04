@@ -69,4 +69,8 @@ export class UsersService {
 
     return user;
   }
+
+  async createMany(users: User[]) {
+    return await this.userModel.insertMany(users);
+  }
 }

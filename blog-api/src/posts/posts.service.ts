@@ -77,4 +77,8 @@ export class PostsService {
 
     return post;
   }
+
+  async createMany(posts: Post[]) {
+    return await this.postModel.insertMany(posts);
+  }
 }

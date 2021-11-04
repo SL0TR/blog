@@ -3,7 +3,8 @@ import { postsUrl } from "api/endpoints";
 import { useGLobalStateContext } from "context/GlobalState";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
+import { PRIVATE_ROUTE } from "router";
 import http from "services/httpService";
 
 const intialPostState = {
@@ -20,6 +21,7 @@ function Post({ postTypeProp = "create" }) {
   const { currentUser } = useGLobalStateContext();
   const [isPostAuthor, setIsPostAuthor] = useState(false);
   const isViewOnlyPost = postType === "view";
+  const history = useHistory();
 
   const { id: postId } = useParams();
 
@@ -73,12 +75,15 @@ function Post({ postTypeProp = "create" }) {
           thumbnailUrl: response?.data?.thumbnailUrl,
           author: response?.data?.author,
         });
+      } else {
+        message.error("Post not found");
+        history.push(`/${PRIVATE_ROUTE.POSTS}`);
       }
     }
     if (postId) {
       fetchPost();
     }
-  }, [postId]);
+  }, [postId, history]);
 
   // check if current user is the author of the post
   useEffect(() => {

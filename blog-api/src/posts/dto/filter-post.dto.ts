@@ -8,5 +8,5 @@ export class FilterPostDto extends PartialType(BasePostDto) {}
 export class QueryPostDto extends PaginationQueryDto {
   @IsString()
   @IsOptional()
-  author: string;
+  author?: string;
 }

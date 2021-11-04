@@ -7,12 +7,12 @@ export type UserDocument = User & Document;
 
 @Schema({ timestamps: true })
 export class User {
-  _id: Types.ObjectId;
+  _id?: Types.ObjectId;
 
   @Prop({ required: true, unique: true })
   username: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   password: string;
 
   @Prop({ required: true, default: Role.User })
