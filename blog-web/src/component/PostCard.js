@@ -27,7 +27,7 @@ function SinglePostCard({ post }) {
         />
         <Typography.Paragraph style={{ marginTop: 20 }}>
           Posted by{" "}
-          <span style={{ fontWeight: "bold" }}> {post?.author?.username}</span>
+          <span style={{ fontWeight: "bold" }}> @{post?.author?.username}</span>
         </Typography.Paragraph>
       </Card>
     </Link>

@@ -17,7 +17,6 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Role } from '../common/enums/role.enum';
 @Controller('users')
-@Roles(Role.Admin)
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -28,6 +27,7 @@ export class UsersController {
   }
 
   @Patch(':id')
+  @Roles(Role.Admin)
   update(
     @Param('id') _id: Types.ObjectId,
     @Body() updateUserDto: UpdateUserDto,
@@ -36,6 +36,7 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @Roles(Role.Admin)
   remove(@Param('id') _id: Types.ObjectId) {
     return this.usersService.remove({ _id });
   }
