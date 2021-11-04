@@ -6,8 +6,7 @@ import NotFoundPage from "pages/NotFound";
 import SignIn from "pages/SignIn";
 import Layout from "component/Layout";
 import { PRIVATE_ROUTE } from "router";
-import Authors from "pages/Authors";
-import CreateBlog from "pages/CreateBlog";
+import CreatePost from "pages/CreatePost";
 import SinglePost from "pages/SinglePost";
 
 function Routes() {
@@ -30,12 +29,8 @@ function Routes() {
       exact: true,
     },
     {
-      path: PRIVATE_ROUTE.AUTHORS,
-      component: Authors,
-    },
-    {
       path: PRIVATE_ROUTE.CREATE,
-      component: CreateBlog,
+      component: CreatePost,
     },
     {
       path: PRIVATE_ROUTE.SINGLE_POST,

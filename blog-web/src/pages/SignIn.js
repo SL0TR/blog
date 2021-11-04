@@ -31,7 +31,11 @@ function SignIn() {
       style={{ height: "100vh" }}
     >
       <div className="site-card-border-less-wrapper">
-        <Card title="Login" bordered={false} style={{ width: 300 }}>
+        <Card
+          title="User Authentication"
+          bordered={false}
+          style={{ width: 300 }}
+        >
           <UserAuthForm />
         </Card>
       </div>

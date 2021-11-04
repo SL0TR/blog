@@ -30,6 +30,8 @@ export class PostsService {
       .find(filter)
       .skip(offset)
       .limit(limit)
+      .sort({ createdAt: -1 })
+      .populate('author')
       .exec();
     response.success = true;
 
@@ -37,7 +39,10 @@ export class PostsService {
   }
 
   async findOne(filterPostDto: FilterPostDto) {
-    const post = await this.postModel.findOne(filterPostDto).exec();
+    const post = await this.postModel
+      .findOne(filterPostDto)
+      .populate('author')
+      .exec();
     if (!post) {
       throw new NotFoundException();
     }

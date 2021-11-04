@@ -1,5 +1,14 @@
+import { Col, Row } from "antd";
+import Post from "component/Post";
+
 function SinglePost() {
-  return <div>Single Post page</div>;
+  return (
+    <Row style={{ marginTop: 50 }} gutter={[20, 30]} justify="center">
+      <Col span={20}>
+        <Post postTypeProp="view" />
+      </Col>
+    </Row>
+  );
 }
 
 export default SinglePost;

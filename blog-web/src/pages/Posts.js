@@ -1,5 +1,5 @@
 import { Col, Row, Typography } from "antd";
-import { psostsUrl } from "api/endpoints";
+import { postsUrl } from "api/endpoints";
 import SinglePostCard from "component/PostCard";
 import { useEffect, useState } from "react";
 import http from "services/httpService";
@@ -10,7 +10,7 @@ function Posts() {
   console.log(posts);
 
   async function fetchPosts() {
-    const res = await http.get(psostsUrl);
+    const res = await http.get(postsUrl);
 
     if (res?.data?.data) {
       setPosts(res?.data?.data);

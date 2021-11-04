@@ -39,32 +39,6 @@ function UserAuthForm() {
         <Input.Password placeholder="Password" />
       </Form.Item>
 
-      {!isLoginForm && (
-        <Form.Item
-          name="password confirm"
-          hasFeedback
-          rules={[
-            {
-              required: true,
-            },
-            {
-              min: 4,
-            },
-            ({ getFieldValue }) => ({
-              validator(rule, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  "The two passwords that you entered do not match!"
-                );
-              },
-            }),
-          ]}
-        >
-          <Input.Password placeholder="Confirm Password" />
-        </Form.Item>
-      )}
       <Row type="flex" justify="center" gutter={20}>
         <Col>
           <Button onClick={() => setIsLoginForm((pS) => !pS)} size="large">
