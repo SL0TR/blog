@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { Row, Form, Input, Button, Col, message } from "antd";
-import { useHistory } from "react-router-dom";
 import { useGLobalStateContext } from "context/GlobalState";
 import axios from "axios";
+import { authUrl } from "api/endpoints";
 
 function UserAuthForm() {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const { setJwtToken, setCurrentUser } = useGLobalStateContext();
 
   const onFinish = async (formData) => {
-    const endpoint = isLoginForm ? "login" : "register";
+    const authType = isLoginForm ? "login" : "register";
 
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/auth/${endpoint}`,
-        formData
-      );
+      const response = await axios.post(`${authUrl}${authType}`, formData);
       setJwtToken(response.data.token);
       setCurrentUser(response.data.user);
     } catch (e) {

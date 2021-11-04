@@ -8,8 +8,8 @@ export function useGLobalStateContext() {
 }
 
 export const ContextProvider = ({ children }) => {
-  const [jwtToken, setJwtToken] = usePersistedState("token");
-  const [currentUser, setCurrentUser] = usePersistedState("token");
+  const [jwtToken, setJwtToken] = usePersistedState("token", null);
+  const [currentUser, setCurrentUser] = usePersistedState("currentUser", null);
 
   return (
     <Context.Provider

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Row, Divider, Card } from "antd";
+import { Row, Card } from "antd";
 import { Redirect, useLocation } from "react-router-dom";
 import { useGLobalStateContext } from "context/GlobalState";
 import UserAuthForm from "component/UserAuthForm";
+import { PRIVATE_ROUTE } from "router";
 
 function SignIn() {
   const location = useLocation();
@@ -15,7 +16,9 @@ function SignIn() {
     }
   }, [jwtToken]);
 
-  const { from } = location.state || { from: { pathname: "/dashboard" } };
+  const { from } = location.state || {
+    from: { pathname: `/${PRIVATE_ROUTE.BLOGS}` },
+  };
 
   if (redirectToReferrer) {
     return <Redirect to={from} />;

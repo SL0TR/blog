@@ -1,70 +1,70 @@
-import { lazy, Suspense } from "react";
-import {
-  Route,
-  Redirect,
-  BrowserRouter as Router,
-  Switch,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { PUBLIC_ROUTE } from "./routePaths";
-import { useGLobalStateContext } from "context/GlobalState";
-import { Spin } from "antd";
-
-const Dashboard = lazy(() => import("pages/Dashboard"));
-const SignInPage = lazy(() => import("pages/SignIn"));
-const NotFound = lazy(() => import("pages/NotFound"));
-
-function PrivateRoute({ children, ...rest }) {
-  const { jwtToken } = useGLobalStateContext();
-
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        jwtToken ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: PUBLIC_ROUTE.SIGN_IN,
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
-}
+import PrivateRoute from "component/PrivateRoute";
+import Posts from "pages/Posts";
+import NotFoundPage from "pages/NotFound";
+import SignIn from "pages/SignIn";
+import Layout from "component/Layout";
+import { PRIVATE_ROUTE } from "router";
+import Authors from "pages/Authors";
+import CreateBlog from "pages/CreateBlog";
+import SinglePost from "pages/SinglePost";
 
 function Routes() {
   const publicRoutes = [
     {
       path: PUBLIC_ROUTE.LANDING,
       exact: true,
-      component: SignInPage,
+      component: SignIn,
     },
     {
       path: PUBLIC_ROUTE.SIGN_IN,
-      component: SignInPage,
+      component: SignIn,
     },
   ];
 
+  const privateRoutes = [
+    {
+      path: PRIVATE_ROUTE.POSTS,
+      component: Posts,
+      exact: true,
+    },
+    {
+      path: PRIVATE_ROUTE.AUTHORS,
+      component: Authors,
+    },
+    {
+      path: PRIVATE_ROUTE.CREATE,
+      component: CreateBlog,
+    },
+    {
+      path: PRIVATE_ROUTE.SINGLE_POST,
+      component: SinglePost,
+    },
+  ];
   return (
     <div>
-      <Suspense fallback={<Spin />}>
-        <Router>
-          <Switch>
-            {publicRoutes.map((route) => (
-              <Route key={route.path} path={route.path} exact={route.exact}>
+      <Router>
+        <Switch>
+          {publicRoutes.map((route) => (
+            <Route key={route.path} path={`/${route.path}`} exact={route.exact}>
+              <route.component />
+            </Route>
+          ))}
+          <Layout>
+            {privateRoutes.map((route) => (
+              <PrivateRoute
+                key={route.path}
+                path={`/${route.path}`}
+                exact={route?.exact}
+              >
                 <route.component />
-              </Route>
+              </PrivateRoute>
             ))}
-            <PrivateRoute path="/dashboard">
-              <Dashboard />
-            </PrivateRoute>
-            <Route component={NotFound} />
-          </Switch>
-        </Router>
-      </Suspense>
+          </Layout>
+          <Route component={NotFoundPage} />
+        </Switch>
+      </Router>
     </div>
   );
 }
