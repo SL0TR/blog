@@ -10,8 +10,6 @@ function Authors() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
 
-  console.log(users);
-
   useEffect(() => {
     async function fetchusers() {
       const offset = (currentPage - 1) * pageSize;
@@ -40,7 +38,7 @@ function Authors() {
       <Col span={24} align="middle">
         <Typography.Title>Posts</Typography.Title>
       </Col>
-      <Col span={20}>
+      <Col span={20} style={{ marginBottom: 50 }}>
         <Row gutter={[50, 50]}>
           {users.map((user) => (
             <Col span={8} key={user._id}>
@@ -49,16 +47,18 @@ function Authors() {
           ))}
         </Row>
       </Col>
-      <Col span={20}>
-        <Pagination
-          defaultCurrent={1}
-          current={currentPage}
-          total={totalusers}
-          pageSize={pageSize}
-          onChange={(page) => setCurrentPage(page)}
-        />
-        ,
-      </Col>
+      {totalUsers > pageSize && (
+        <Col span={20}>
+          <Pagination
+            defaultCurrent={1}
+            current={currentPage}
+            total={totalusers}
+            pageSize={pageSize}
+            onChange={(page) => setCurrentPage(page)}
+          />
+          ,
+        </Col>
+      )}
     </Row>
   );
 }

@@ -1,5 +1,5 @@
 import { Header } from "antd/lib/layout/layout";
-import { Button, Col, Menu, Row } from "antd";
+import { Avatar, Button, Col, Menu, Row, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router";
 import { PRIVATE_ROUTE } from "router";
@@ -7,7 +7,7 @@ import { useGLobalStateContext } from "context/GlobalState";
 
 function Layout({ children }) {
   const location = useLocation();
-  const { setJwtToken } = useGLobalStateContext();
+  const { setJwtToken, currentUser } = useGLobalStateContext();
 
   return (
     <>
@@ -31,9 +31,14 @@ function Layout({ children }) {
               </Menu.Item>
             </Menu>
           </Col>
-          <Col>
-            <Button onClick={() => setJwtToken(null)}>Logout</Button>
-          </Col>
+          <Row gutter={30}>
+            <Typography.Paragraph style={{ color: "#eee" }}>
+              @{currentUser?.username}
+            </Typography.Paragraph>
+            <Col>
+              <Button onClick={() => setJwtToken(null)}>Logout</Button>
+            </Col>
+          </Row>
         </Row>
       </Header>
 
