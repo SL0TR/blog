@@ -1,4 +1,4 @@
-import { Affix, Button, Col, Input, message, Row, Typography } from "antd";
+import { Button, Col, Input, message, Row, Typography } from "antd";
 import { postsUrl } from "api/endpoints";
 import { useGLobalStateContext } from "context/GlobalState";
 import { useEffect, useState } from "react";
@@ -19,23 +19,11 @@ function Post({ postTypeProp = "create" }) {
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser } = useGLobalStateContext();
   const [isPostAuthor, setIsPostAuthor] = useState(false);
+  const isViewOnlyPost = postType === "view";
 
   const { id: postId } = useParams();
 
-  async function handleSubmit() {
-    const { title, body, thumbnailUrl } = post;
-
-    if (!title || !body) {
-      message.error("Please fill all required the fields");
-      return;
-    }
-
-    const payload = {
-      title,
-      body,
-      ...(thumbnailUrl ? { thumbnailUrl } : {}),
-    };
-
+  async function submitRequest(payload) {
     setIsLoading(true);
     let response = null;
 
@@ -57,16 +45,35 @@ function Post({ postTypeProp = "create" }) {
     }
   }
 
+  function handleSubmit() {
+    const { title, body, thumbnailUrl } = post;
+
+    if (!title || !body) {
+      message.error("Please fill all required the fields");
+      return;
+    }
+
+    const payload = {
+      title,
+      body,
+      ...(thumbnailUrl ? { thumbnailUrl } : {}),
+    };
+
+    submitRequest(payload);
+  }
+
   // fetch posts if postId is present on url
   useEffect(() => {
     async function fetchPost() {
       const response = await http.get(postsUrl + postId);
-      setPost({
-        body: response?.data?.body,
-        title: response?.data?.title,
-        thumbnailUrl: response?.data?.thumbnailUrl,
-        author: response?.data?.author,
-      });
+      if (response?.data) {
+        setPost({
+          body: response?.data?.body,
+          title: response?.data?.title,
+          thumbnailUrl: response?.data?.thumbnailUrl,
+          author: response?.data?.author,
+        });
+      }
     }
     if (postId) {
       fetchPost();
@@ -83,16 +90,19 @@ function Post({ postTypeProp = "create" }) {
   return (
     <Row gutter={[20, 30]} justify="center">
       {isPostAuthor && (
-        <Col span={20} align="end">
-          <Affix offsetTop={20}>
-            <Button onClick={() => setPostType("update")} type="primary">
-              Edit Post
-            </Button>
-          </Affix>
+        <Col span={20} align="middle">
+          <Button
+            type="ghost"
+            onClick={() =>
+              setPostType((pS) => (pS === "update" ? "view" : "update"))
+            }
+          >
+            {postType === "update" ? "Cancel Edit" : "Edit Post"}
+          </Button>
         </Col>
       )}
       <Col span={20}>
-        {postType === "view" ? (
+        {isViewOnlyPost ? (
           <Typography.Title>{post?.title}</Typography.Title>
         ) : (
           <>
@@ -108,7 +118,7 @@ function Post({ postTypeProp = "create" }) {
         )}
       </Col>
       <Col span={20}>
-        {postType === "view" ? (
+        {isViewOnlyPost ? (
           <img
             src={post?.thumbnailUrl || "https://picsum.photos/400/200"}
             alt={post?.title}
@@ -132,10 +142,10 @@ function Post({ postTypeProp = "create" }) {
         )}
 
         <ReactQuill
-          theme={postType === "view" ? "bubble" : "snow"}
+          theme={isViewOnlyPost ? "bubble" : "snow"}
           value={post.body}
           onChange={(content) => setPost((pS) => ({ ...pS, body: content }))}
-          readOnly={postType === "view"}
+          readOnly={isViewOnlyPost}
           sho
         />
       </Col>
