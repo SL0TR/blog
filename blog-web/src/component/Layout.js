@@ -1,5 +1,5 @@
 import { Header } from "antd/lib/layout/layout";
-import { Avatar, Button, Col, Menu, Row, Typography } from "antd";
+import { Button, Col, Menu, Row, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router";
 import { PRIVATE_ROUTE } from "router";

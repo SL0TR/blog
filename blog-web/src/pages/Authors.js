@@ -36,7 +36,7 @@ function Authors() {
       align="middle"
     >
       <Col span={24} align="middle">
-        <Typography.Title>Posts</Typography.Title>
+        <Typography.Title>Authors</Typography.Title>
       </Col>
       <Col span={20} style={{ marginBottom: 50 }}>
         <Row gutter={[50, 50]}>

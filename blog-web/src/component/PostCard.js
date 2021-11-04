@@ -26,7 +26,7 @@ function SinglePostCard({ post }) {
           description={`Posted ${dayjs(post?.createdAt).fromNow("h")} ago`}
         />
         <Typography.Paragraph style={{ marginTop: 20 }}>
-          Posted by{" "}
+          Author:
           <span style={{ fontWeight: "bold" }}> @{post?.author?.username}</span>
         </Typography.Paragraph>
       </Card>
