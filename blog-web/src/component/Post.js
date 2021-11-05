@@ -2,9 +2,11 @@ import { Button, Col, Input, message, Row, Typography } from "antd";
 import { postsUrl } from "api/endpoints";
 import useIsPostAuthor from "hooks/useIsPostAuthor";
 import usePostState, { intialPostState } from "hooks/usePostState";
+import { getPostAuthorLink, getPostedTime } from "lib/utils";
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import http from "services/httpService";
 
 function Post({ postTypeProp = "create" }) {
@@ -58,7 +60,7 @@ function Post({ postTypeProp = "create" }) {
   return (
     <Row gutter={[20, 30]} justify="center">
       {isPostAuthor && (
-        <Col span={20} align="middle">
+        <Col span={24} align="middle">
           <Button
             type={isUpdatePost ? "ghost" : "primary"}
             onClick={() => setPostType(isUpdatePost ? "view" : "update")}
@@ -67,7 +69,7 @@ function Post({ postTypeProp = "create" }) {
           </Button>
         </Col>
       )}
-      <Col span={20}>
+      <Col span={24}>
         {isViewOnlyPost ? (
           <Typography.Title>{post?.title}</Typography.Title>
         ) : (
@@ -83,10 +85,10 @@ function Post({ postTypeProp = "create" }) {
           </>
         )}
       </Col>
-      <Col span={20}>
+      <Col span={24}>
         {isViewOnlyPost ? (
           <img
-            src={post?.thumbnailUrl || "https://picsum.photos/400/200"}
+            src={post?.thumbnailUrl || "https://picsum.photos/400/240"}
             alt={post?.title}
           />
         ) : (
@@ -102,7 +104,18 @@ function Post({ postTypeProp = "create" }) {
           </>
         )}
       </Col>
-      <Col span={20}>
+      {isViewOnlyPost && (
+        <Col span={24}>
+          <Typography.Paragraph>
+            {`Posted ${getPostedTime(post?.createdAt)} ago by `}
+            <Link to={getPostAuthorLink(post?.author?._id)}>
+              @{post?.author?.username}
+            </Link>
+          </Typography.Paragraph>
+        </Col>
+      )}
+
+      <Col span={24}>
         {postType !== "view" && (
           <Typography.Paragraph>*Body</Typography.Paragraph>
         )}

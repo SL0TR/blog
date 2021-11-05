@@ -1,9 +1,8 @@
 import { Card, Typography } from "antd";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { getPostAuthorLink, getPostedTime } from "lib/utils";
 import { Link } from "react-router-dom";
 import { PRIVATE_ROUTE } from "router";
-dayjs.extend(relativeTime);
+
 const { Meta } = Card;
 
 function SinglePostCard({ post }) {
@@ -28,9 +27,9 @@ function SinglePostCard({ post }) {
     >
       <Meta
         title={post?.title}
-        description={`Posted ${dayjs(post?.createdAt).fromNow("h")} ago`}
+        description={`Posted ${getPostedTime(post?.createdAt)} ago`}
       />
-      <Link to={`${PRIVATE_ROUTE.POSTS}?author=${post?.author?._id}`}>
+      <Link to={getPostAuthorLink(post?.author?._id)}>
         <Typography.Paragraph
           style={{
             marginTop: 20,

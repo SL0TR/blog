@@ -21,7 +21,7 @@ http.interceptors.request.use((config) => {
 });
 
 http.interceptors.response.use(null, (error) => {
-  if (error.response.data.message) {
+  if (error?.response?.data?.message) {
     message.error(error.response.data.message);
     return { error };
   }

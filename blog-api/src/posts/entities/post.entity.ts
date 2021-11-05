@@ -22,7 +22,7 @@ export class Post {
     ref: User.name,
     required: true,
   })
-  author?: Types.ObjectId;
+  author: Types.ObjectId;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

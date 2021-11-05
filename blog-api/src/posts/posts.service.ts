@@ -31,7 +31,8 @@ export class PostsService {
       .skip(offset)
       .limit(limit)
       .sort({ createdAt: -1 })
-      .populate('author')
+      .populate('author', '-password')
+      .select('-body')
       .exec();
     response.success = true;
 
@@ -41,7 +42,7 @@ export class PostsService {
   async findOne(filterPostDto: FilterPostDto) {
     const post = await this.postModel
       .findOne(filterPostDto)
-      .populate('author')
+      .populate('author', '-password')
       .exec();
     if (!post) {
       throw new NotFoundException();

@@ -7,7 +7,7 @@ function CreatePost() {
       <Col span={24} align="middle">
         <Typography.Title>Create Post</Typography.Title>
       </Col>
-      <Col span={20}>
+      <Col span={16}>
         <Post postTypeProp="create" />
       </Col>
     </Row>

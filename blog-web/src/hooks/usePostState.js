@@ -10,6 +10,7 @@ export const intialPostState = {
   title: "",
   thumbnailUrl: "",
   author: null,
+  createdAt: null,
 };
 
 function usePostState() {
@@ -27,6 +28,7 @@ function usePostState() {
           title: response?.data?.title,
           thumbnailUrl: response?.data?.thumbnailUrl,
           author: response?.data?.author,
+          createdAt: response?.data?.createdAt,
         });
       } else {
         message.error("Post not found");
