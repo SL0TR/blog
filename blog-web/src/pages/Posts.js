@@ -29,14 +29,19 @@ function Posts() {
           {authorParam && author ? `Posts by ${author?.username}` : "All Posts"}
         </Typography.Title>
       </Col>
-      <Col span={20} style={{ marginBottom: 50 }}>
-        <Row gutter={[50, 50]}>
-          {posts.map((post) => (
-            <Col span={8} key={post._id}>
-              <SinglePostCard post={post} />
-            </Col>
-          ))}
-        </Row>
+
+      <Col span={20} style={{ marginBottom: 50 }} align="middle">
+        {posts.length > 1 ? (
+          <Row gutter={[50, 50]}>
+            {posts.map((post) => (
+              <Col span={8} key={post._id}>
+                <SinglePostCard post={post} />
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <Typography.Paragraph>No posts found</Typography.Paragraph>
+        )}
       </Col>
       {totalPosts > pageSize && (
         <Col span={20}>

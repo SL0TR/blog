@@ -16,26 +16,34 @@ function Post({ postTypeProp = "create" }) {
   const [postType, setPostType] = useState(postTypeProp);
   const [isLoading, setIsLoading] = useState(false);
   const isViewOnlyPost = postType === "view";
-  const isUpdatePost = postType === "update";
+  const isEditOnlyPost = postType === "edit";
+  const isCreateOnlyPost = postType === "create";
 
   async function submitRequest(payload) {
     setIsLoading(true);
-    let response = null;
+    let success = false;
 
     // seperate request for create and update
-    if (postType === "create") {
-      response = await http.post(postsUrl, payload);
-    }
+    if (isCreateOnlyPost) {
+      const response = await http.post(postsUrl, payload);
 
-    if (postType === "update") {
-      response = await http.patch(postsUrl + postId, payload);
-    }
-
-    if (response?.data) {
-      message.success(`Post ${postType}d successfully!`);
-      if (postType === "create") {
+      if (response?.data) {
+        message.success(`Post  Created successfully!`);
         setPost(intialPostState);
+        success = true;
       }
+    }
+
+    if (isEditOnlyPost) {
+      const response = await http.patch(postsUrl + postId, payload);
+
+      if (response?.data) {
+        message.success(`Post  updated successfully!`);
+        success = true;
+      }
+    }
+
+    if (success) {
       setIsLoading(false);
     }
   }
@@ -62,10 +70,10 @@ function Post({ postTypeProp = "create" }) {
       {isPostAuthor && (
         <Col span={24} align="middle">
           <Button
-            type={isUpdatePost ? "ghost" : "primary"}
-            onClick={() => setPostType(isUpdatePost ? "view" : "update")}
+            type={isEditOnlyPost ? "ghost" : "primary"}
+            onClick={() => setPostType(isEditOnlyPost ? "view" : "edit")}
           >
-            {isUpdatePost ? "Cancel Edit" : "Edit Post"}
+            {isEditOnlyPost ? "Cancel Edit" : "Edit Post"}
           </Button>
         </Col>
       )}
@@ -117,9 +125,7 @@ function Post({ postTypeProp = "create" }) {
       )}
 
       <Col span={24}>
-        {postType !== "view" && (
-          <Typography.Paragraph>*Body</Typography.Paragraph>
-        )}
+        {!isViewOnlyPost && <Typography.Paragraph>*Body</Typography.Paragraph>}
 
         <ReactQuill
           theme={isViewOnlyPost ? "bubble" : "snow"}
@@ -129,7 +135,7 @@ function Post({ postTypeProp = "create" }) {
           sho
         />
       </Col>
-      {postType !== "view" && (
+      {!isViewOnlyPost && (
         <Col span={24} align="middle">
           <Button
             style={{ marginBottom: 50 }}
