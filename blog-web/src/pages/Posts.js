@@ -30,7 +30,7 @@ function Posts() {
         </Typography.Title>
       </Col>
 
-      <Col span={20} style={{ marginBottom: 50 }} align="middle">
+      <Col span={20} style={{ marginBottom: 50 }}>
         {posts.length > 0 ? (
           <Row gutter={[50, 50]}>
             {posts.map((post) => (
