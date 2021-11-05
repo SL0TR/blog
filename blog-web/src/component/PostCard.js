@@ -1,4 +1,4 @@
-import { Card, Typography } from "antd";
+import { Card } from "antd";
 import { getPostAuthorLink, getPostedTime } from "lib/utils";
 import { Link } from "react-router-dom";
 import { PRIVATE_ROUTE } from "router";
@@ -28,18 +28,10 @@ function SinglePostCard({ post }) {
       <Meta
         title={post?.title}
         description={`Posted ${getPostedTime(post?.createdAt)} ago`}
+        style={{ marginBottom: 20 }}
       />
       <Link to={getPostAuthorLink(post?.author?._id)}>
-        <Typography.Paragraph
-          style={{
-            marginTop: 20,
-            fontWeight: "bold",
-            textDecoration: "underline",
-            display: "inline-block",
-          }}
-        >
-          @{post?.author?.username}
-        </Typography.Paragraph>
+        @{post?.author?.username}
       </Link>
     </Card>
   );

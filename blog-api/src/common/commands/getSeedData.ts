@@ -31,13 +31,13 @@ export function getSeedData() {
     {
       roles: [Role.User, Role.Admin],
       password: '$2b$10$SKsIewDAtvctM/TxjgfYpOzHVJIsyumsgwvp63c2nRo1RJE1XuXPC',
-      username: 'rick-c137',
+      username: 'rick_c137',
       _id: rickId,
     },
     {
       roles: [Role.User],
       password: '$2b$10$SKsIewDAtvctM/TxjgfYpOzHVJIsyumsgwvp63c2nRo1RJE1XuXPC',
-      username: 'morty-c137',
+      username: 'morty_c137',
       _id: mortyId,
     },
   ];
@@ -159,6 +159,32 @@ export function getSeedData() {
         'https://res.cloudinary.com/practicaldev/image/fetch/s--HMQnDOhe--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3ls8dyoo7yfgowq3zqf4.jpeg',
       author: rickId,
       title: 'The Most Powerful React JS Cheat Sheet',
+    },
+    {
+      body: `<p>Most devices nowadays come with a notch or some kind of status bar. Therefore, when building a mobile application using React Native, it is vital to ensure that the content of an app screen is rendered correctly across different types of devices.</p><p>In this article, let's take a look two different approaches to make app screens in React Native to avoid the content being positioned behind a notch or status bar.</p><p>The first approach will discuss SafeAreaView component from React Native components API. The second approach will discuss the advantage of using <a href="https://github.com/th3rdwave/react-native-safe-area-context#readme" target="_blank">react-native-safe-area-context </a>open source library and how it provides a cross-platform solution.</p><p><br /></p><h3>The Notch Problem</h3><p>When you are starting to build a screen in React Native app, you might add use the following code snippet to display text:</p><p><br /></p><pre>import React from 'react';
+      import { StyleSheet, Text, View } from 'react-native';
+      
+      export const HomeScreen = () =&gt; {
+        return (
+          &lt;View style={[styles.container]}&gt;
+            &lt;View style={{ backgroundColor: 'blue' }}&gt;
+              &lt;Text style={{ fontSize: 28, color: 'white' }}&gt;Hello World&lt;/Text&gt;
+            &lt;/View&gt;
+          &lt;/View&gt;
+        );
+      };
+      
+      const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          backgroundColor: 'red'
+        }
+      });
+      </pre><p><br /></p><p>The above code snippet has a parent View component with a background color of red. It wraps another View component with a background color of blue that contains a Text component to display some text on the screen.</p>`,
+      thumbnailUrl:
+        'https://www.qed42.com/sites/default/files/styles/featured_image/public/2018-11/react-native.png',
+      author: rickId,
+      title: 'How to avoid notches with Safe Area Context in React Native apps',
     },
   ];
 

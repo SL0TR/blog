@@ -90,6 +90,7 @@ function Post({ postTypeProp = "create" }) {
           <img
             src={post?.thumbnailUrl || "https://picsum.photos/400/240"}
             alt={post?.title}
+            style={{ width: "100%" }}
           />
         ) : (
           <>
