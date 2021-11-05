@@ -26,6 +26,12 @@ export class UsersController {
     return this.usersService.findAll(queryUserDto);
   }
 
+  @Get(':id')
+  findOne(@Param('id') _id: Types.ObjectId) {
+    console.log(_id);
+    return this.usersService.findOne({ _id });
+  }
+
   @Patch(':id')
   @Roles(Role.Admin)
   update(

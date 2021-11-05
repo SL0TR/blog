@@ -1,7 +1,7 @@
 import { Button, Col, Input, message, Row, Typography } from "antd";
 import { postsUrl } from "api/endpoints";
 import useIsPostAuthor from "hooks/useIsPostAuthor";
-import usePostState, { intialPostState } from "hooks/usePostState";
+import useGetPost, { intialPostState } from "hooks/useGetPost";
 import { getPostAuthorLink, getPostedTime } from "lib/utils";
 import { useState } from "react";
 import ReactQuill from "react-quill";
@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import http from "services/httpService";
 
 function Post({ postTypeProp = "create" }) {
-  const [post, setPost] = usePostState();
+  const [post, setPost] = useGetPost();
   const isPostAuthor = useIsPostAuthor(post?.author?._id);
   const { id: postId } = useParams();
   const [postType, setPostType] = useState(postTypeProp);

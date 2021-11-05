@@ -7,19 +7,23 @@ dayjs.extend(relativeTime);
 
 const { Meta } = Card;
 
-function AuthorCard({ user }) {
+function AuthorCard({ author }) {
   return (
-    <Link to={getPostAuthorLink(user?._id)}>
+    <Link to={getPostAuthorLink(author?._id)}>
       <Card hoverable>
         <Meta
-          title={user?.username}
-          description={`Joined ${getPostedTime(user?.createdAt)} ago`}
+          title={author?.username}
+          description={`Joined ${getPostedTime(author?.createdAt)} ago`}
         />
         <Row justify="space-between" align="middle">
           <Col>
             <Typography.Paragraph style={{ marginTop: 20 }}>
-              {user?.roles?.includes("admin") && <Tag color="gold">Admin</Tag>}
-              {user?.roles?.includes("user") && <Tag color="blue">Author</Tag>}
+              {author?.roles?.includes("admin") && (
+                <Tag color="gold">Admin</Tag>
+              )}
+              {author?.roles?.includes("user") && (
+                <Tag color="blue">Author</Tag>
+              )}
             </Typography.Paragraph>
           </Col>
           <Col>

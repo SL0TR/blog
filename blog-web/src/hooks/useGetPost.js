@@ -13,7 +13,7 @@ export const intialPostState = {
   createdAt: null,
 };
 
-function usePostState() {
+function useGetPost() {
   const [post, setPost] = useState(intialPostState);
   const history = useHistory();
 
@@ -43,4 +43,4 @@ function usePostState() {
   return [post, setPost];
 }
 
-export default usePostState;
+export default useGetPost;

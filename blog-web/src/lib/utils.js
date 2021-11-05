@@ -3,14 +3,17 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { PRIVATE_ROUTE } from "router";
 dayjs.extend(relativeTime);
 
+export const pageSize = 6;
+
 export function getParsedJson(str) {
-  let parsedJson = str;
+  if (!str) {
+    return null;
+  }
 
   try {
-    parsedJson = JSON.parse(str);
-    return parsedJson;
+    return JSON.parse(str);
   } catch (e) {
-    return parsedJson;
+    return str;
   }
 }
 

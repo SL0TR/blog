@@ -1,31 +1,12 @@
 import { Col, Pagination, Row, Typography } from "antd";
-import { usersUrl } from "api/endpoints";
 import AuthorCard from "component/AuthorCard";
-import { useEffect, useState } from "react";
-import http from "services/httpService";
+import useGetAuthors from "hooks/useGetAuthors";
+import { pageSize } from "lib/utils";
+import { useState } from "react";
 
 function Authors() {
-  const [users, setUsers] = useState([]);
-  const [totalusers, totalUsers] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 6;
-
-  useEffect(() => {
-    async function fetchusers() {
-      const offset = (currentPage - 1) * pageSize;
-
-      const res = await http.get(
-        `${usersUrl}?limit=${pageSize}${offset ? `&offset=${offset}` : ""}`
-      );
-
-      if (res?.data?.data) {
-        setUsers(res?.data?.data);
-        totalUsers(res?.data?.totalCount);
-      }
-    }
-
-    fetchusers();
-  }, [currentPage]);
+  const { authors, totalCount } = useGetAuthors({ currentPage });
 
   return (
     <Row
@@ -40,19 +21,19 @@ function Authors() {
       </Col>
       <Col span={20} style={{ marginBottom: 50 }}>
         <Row gutter={[50, 50]}>
-          {users.map((user) => (
-            <Col span={8} key={user._id}>
-              <AuthorCard user={user} />
+          {authors.map((author) => (
+            <Col span={8} key={author._id}>
+              <AuthorCard author={author} />
             </Col>
           ))}
         </Row>
       </Col>
-      {totalUsers > pageSize && (
+      {totalCount > pageSize && (
         <Col span={20}>
           <Pagination
             defaultCurrent={1}
             current={currentPage}
-            total={totalusers}
+            total={totalCount}
             pageSize={pageSize}
             onChange={(page) => setCurrentPage(page)}
           />

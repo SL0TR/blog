@@ -1,40 +1,20 @@
 import { Col, Pagination, Row, Typography } from "antd";
-import { postsUrl } from "api/endpoints";
 import SinglePostCard from "component/PostCard";
-import { useEffect, useMemo, useState } from "react";
+import useGetAuthor from "hooks/useGetAuthor";
+import useGetPosts from "hooks/useGetPosts";
+import { pageSize } from "lib/utils";
+import { useMemo, useState } from "react";
 import { useLocation } from "react-router";
-import http from "services/httpService";
 
 function Posts() {
-  const [posts, setPosts] = useState([]);
-  const [totalPosts, setTotalPosts] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
   const location = useLocation();
   const authorParam = useMemo(
     () => new URLSearchParams(location.search)?.get("author"),
     [location.search]
   );
-
-  const pageSize = 6;
-
-  useEffect(() => {
-    async function fetchPosts() {
-      const offset = (currentPage - 1) * pageSize;
-
-      const res = await http.get(
-        `${postsUrl}?limit=${pageSize}${offset ? `&offset=${offset}` : ""}${
-          authorParam ? `&author=${authorParam}` : ""
-        }`
-      );
-
-      if (res?.data?.data) {
-        setPosts(res?.data?.data);
-        setTotalPosts(res?.data?.totalCount);
-      }
-    }
-
-    fetchPosts();
-  }, [currentPage, authorParam]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { posts, totalPosts } = useGetPosts({ authorParam, currentPage });
+  const { author } = useGetAuthor(authorParam);
 
   return (
     <Row
@@ -45,7 +25,9 @@ function Posts() {
       align="middle"
     >
       <Col span={24} align="middle">
-        <Typography.Title>Posts</Typography.Title>
+        <Typography.Title>
+          {authorParam && author ? `Posts by ${author?.username}` : "All Posts"}
+        </Typography.Title>
       </Col>
       <Col span={20} style={{ marginBottom: 50 }}>
         <Row gutter={[50, 50]}>
