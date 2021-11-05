@@ -31,7 +31,7 @@ function Posts() {
       </Col>
 
       <Col span={20} style={{ marginBottom: 50 }} align="middle">
-        {posts.length > 1 ? (
+        {posts.length > 0 ? (
           <Row gutter={[50, 50]}>
             {posts.map((post) => (
               <Col span={8} key={post._id}>

@@ -22,7 +22,11 @@ This project was bootstrapped with [NestJS]("http://nestjs.com/).
 $ npm install
 ```
 
-### Setup Enviroment Variable file
+### DB Installation
+
+Install MongoDB from [here]("https://www.mongodb.com/try/download/").
+
+### Setup Environment Variable file
 
 Create a `.env` file and populate it (see `.env.example`)
 

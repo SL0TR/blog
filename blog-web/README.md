@@ -18,7 +18,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 $ npm install
 ```
 
-## Setup Enviroment Variable file
+## Setup Environment Variable file
 
 Create a `.env` file and populate it (see `.env.example`)
 
