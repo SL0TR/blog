@@ -21,7 +21,6 @@ function Post({ postTypeProp = "create" }) {
 
   async function submitRequest(payload) {
     setIsLoading(true);
-    let success = false;
 
     // seperate request for create and update
     if (isCreateOnlyPost) {
@@ -30,7 +29,6 @@ function Post({ postTypeProp = "create" }) {
       if (response?.data) {
         message.success(`Post  Created successfully!`);
         setPost(intialPostState);
-        success = true;
       }
     }
 
@@ -39,13 +37,10 @@ function Post({ postTypeProp = "create" }) {
 
       if (response?.data) {
         message.success(`Post  updated successfully!`);
-        success = true;
       }
     }
 
-    if (success) {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   }
 
   function handleSubmit() {

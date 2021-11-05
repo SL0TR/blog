@@ -37,10 +37,10 @@ export class UsersService {
     return response;
   }
 
-  async findOne(filterUserDto: FilterUserDto) {
+  async findOne(filterUserDto: FilterUserDto, hasPassword = false) {
     const user = await this.userModel
       .findOne(filterUserDto)
-      .select('-password')
+      .select(hasPassword ? '' : '-password')
       .exec();
     if (!user) {
       throw new NotFoundException();
