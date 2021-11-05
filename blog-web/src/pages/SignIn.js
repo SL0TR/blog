@@ -17,7 +17,7 @@ function SignIn() {
   }, [jwtToken]);
 
   const { from } = location.state || {
-    from: { pathname: `/${PRIVATE_ROUTE.BLOGS}` },
+    from: { pathname: `/${PRIVATE_ROUTE.POSTS}` },
   };
 
   if (redirectToReferrer) {

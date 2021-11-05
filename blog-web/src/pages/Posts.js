@@ -1,7 +1,7 @@
 import { Col, Pagination, Row, Typography } from "antd";
 import { postsUrl } from "api/endpoints";
 import SinglePostCard from "component/PostCard";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router";
 import http from "services/httpService";
 
@@ -10,18 +10,20 @@ function Posts() {
   const [totalPosts, setTotalPosts] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const location = useLocation();
+  const authorParam = useMemo(
+    () => new URLSearchParams(location.search)?.get("author"),
+    [location.search]
+  );
 
   const pageSize = 6;
 
   useEffect(() => {
     async function fetchPosts() {
       const offset = (currentPage - 1) * pageSize;
-      const params = new URLSearchParams(location.search);
-      const author = params.get("author");
 
       const res = await http.get(
         `${postsUrl}?limit=${pageSize}${offset ? `&offset=${offset}` : ""}${
-          author ? `&author=${author}` : ""
+          authorParam ? `&author=${authorParam}` : ""
         }`
       );
 
@@ -32,7 +34,7 @@ function Posts() {
     }
 
     fetchPosts();
-  }, [currentPage, location.search]);
+  }, [currentPage, authorParam]);
 
   return (
     <Row
@@ -57,6 +59,7 @@ function Posts() {
       {totalPosts > pageSize && (
         <Col span={20}>
           <Pagination
+            style={{ marginBottom: 50 }}
             defaultCurrent={1}
             current={currentPage}
             total={totalPosts}
