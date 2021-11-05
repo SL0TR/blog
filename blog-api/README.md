@@ -5,11 +5,12 @@ This project was bootstrapped with [NestJS]("http://nestjs.com/).
 ## Stack
 
 - Node
-- NextJS
+- NestJS
 - Express
 - MobngoDB
 - Mongoose
 - Passport
+- Bcrypt
 - NestJS Command
 - Class Validator + Transformer
 - Sanitize HTML
