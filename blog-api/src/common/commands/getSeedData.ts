@@ -31,13 +31,13 @@ export function getSeedData() {
     {
       roles: [Role.User, Role.Admin],
       password: '$2b$10$SKsIewDAtvctM/TxjgfYpOzHVJIsyumsgwvp63c2nRo1RJE1XuXPC',
-      username: 'rickc137',
+      username: 'rick-c137',
       _id: rickId,
     },
     {
       roles: [Role.User],
       password: '$2b$10$SKsIewDAtvctM/TxjgfYpOzHVJIsyumsgwvp63c2nRo1RJE1XuXPC',
-      username: 'mortyc137',
+      username: 'morty-c137',
       _id: mortyId,
     },
   ];

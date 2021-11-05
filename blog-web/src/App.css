@@ -17,6 +17,7 @@ html {
   padding: 5rem;
 }
 
-html body .ql-editor {
-  padding: 0;
+html body .ql-bubble .ql-editor {
+  padding-left: 0;
+  padding-right: 0;
 }
