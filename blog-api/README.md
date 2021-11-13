@@ -57,3 +57,8 @@ $ npm run build or yarn build
 # production mode
 $ npm run start:prod
 ```
+
+### Demo credentials:
+
+- `Username: 'johndoe'`
+- `Password: 'password'`

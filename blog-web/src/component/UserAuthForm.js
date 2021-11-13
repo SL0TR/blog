@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Row, Form, Input, Button, Col, message } from "antd";
+import { Row, Form, Input, Button, Col } from "antd";
 import { useGLobalStateContext } from "context/GlobalState";
-import axios from "axios";
 import { authUrl } from "api/endpoints";
+import http from "services/httpService";
 
 function UserAuthForm() {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -11,12 +11,11 @@ function UserAuthForm() {
   const onFinish = async (formData) => {
     const authType = isLoginForm ? "login" : "register";
 
-    try {
-      const response = await axios.post(`${authUrl}${authType}`, formData);
+    const response = await http.post(`${authUrl}${authType}`, formData);
+
+    if (response?.data) {
       setJwtToken(response.data.token);
       setCurrentUser(response.data.user);
-    } catch (e) {
-      message.error(e.response.data.message);
     }
   };
 

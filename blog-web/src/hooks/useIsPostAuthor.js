@@ -6,11 +6,7 @@ function useIsPostAuthor(authorId) {
   const [isPostAuthor, setIsPostAuthor] = useState(false);
 
   useEffect(() => {
-    if (currentUser?._id === authorId) {
-      setIsPostAuthor(true);
-    } else {
-      setIsPostAuthor(false);
-    }
+    setIsPostAuthor(currentUser?._id === authorId);
   }, [authorId, currentUser?._id]);
 
   return isPostAuthor;

@@ -1,13 +1,12 @@
-import { Button, Col, Input, message, Row, Typography } from "antd";
+import { Button, Col, message, Row } from "antd";
 import { postsUrl } from "api/endpoints";
 import useIsPostAuthor from "hooks/useIsPostAuthor";
 import useGetPost, { intialPostState } from "hooks/useGetPost";
-import { getPostAuthorLink, getPostedTime } from "lib/utils";
 import { useState } from "react";
-import ReactQuill from "react-quill";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
 import http from "services/httpService";
+import PostEditor from "./PostEditor";
+import PostViewer from "./PostViewer";
 
 function Post({ postTypeProp = "create" }) {
   const [post, setPost] = useGetPost();
@@ -72,77 +71,15 @@ function Post({ postTypeProp = "create" }) {
           </Button>
         </Col>
       )}
-      <Col span={24}>
-        {isViewOnlyPost ? (
-          <Typography.Title>{post?.title}</Typography.Title>
-        ) : (
-          <>
-            <Typography.Paragraph>*Title</Typography.Paragraph>
-            <Input
-              placeholder="Title of the post"
-              value={post.title}
-              onChange={(e) =>
-                setPost((pS) => ({ ...pS, title: e.target.value }))
-              }
-            />
-          </>
-        )}
-      </Col>
-      <Col span={24}>
-        {isViewOnlyPost ? (
-          <img
-            src={post?.thumbnailUrl || "https://picsum.photos/400/240"}
-            alt={post?.title}
-            style={{ width: "100%" }}
-          />
-        ) : (
-          <>
-            <Typography.Paragraph>Thumbnail URL</Typography.Paragraph>
-            <Input
-              placeholder="Thumbnail URL of the post (if empty a dummy image will be placed)"
-              value={post.thumbnailUrl}
-              onChange={(e) =>
-                setPost((pS) => ({ ...pS, thumbnailUrl: e.target.value }))
-              }
-            />
-          </>
-        )}
-      </Col>
-      {isViewOnlyPost && (
-        <Col span={24}>
-          <Typography.Paragraph>
-            {`Posted ${getPostedTime(post?.createdAt)} ago by `}
-            <Link to={getPostAuthorLink(post?.author?._id)}>
-              @{post?.author?.username}
-            </Link>
-          </Typography.Paragraph>
-        </Col>
-      )}
-
-      <Col span={24}>
-        {!isViewOnlyPost && <Typography.Paragraph>*Body</Typography.Paragraph>}
-
-        <ReactQuill
-          theme={isViewOnlyPost ? "bubble" : "snow"}
-          value={post.body}
-          onChange={(content) => setPost((pS) => ({ ...pS, body: content }))}
-          readOnly={isViewOnlyPost}
-          sho
+      {(isCreateOnlyPost || isEditOnlyPost) && (
+        <PostEditor
+          post={post}
+          setPost={setPost}
+          handleSubmit={handleSubmit}
+          isLoading={isLoading}
         />
-      </Col>
-      {!isViewOnlyPost && (
-        <Col span={24} align="middle">
-          <Button
-            style={{ marginBottom: 50 }}
-            disabled={isLoading}
-            onClick={handleSubmit}
-            type="primary"
-            size="large"
-          >
-            Submit!
-          </Button>
-        </Col>
       )}
+      {isViewOnlyPost && <PostViewer post={post} />}
     </Row>
   );
 }
