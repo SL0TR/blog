@@ -22,6 +22,13 @@ http.interceptors.request.use((config) => {
 
 http.interceptors.response.use(null, (error) => {
   if (error?.response?.data?.message) {
+    if (typeof error?.response?.data?.message === "object") {
+      const keys = Object.keys(error?.response?.data?.message);
+      for (const key of keys) {
+        message.error(error.response.data.message[key]?.toString());
+      }
+      return { error };
+    }
     message.error(error.response.data.message);
     return { error };
   }

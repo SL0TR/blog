@@ -13,7 +13,7 @@ function Layout({ children }) {
     <>
       <Header className="header">
         <Row justify="space-between">
-          <Col>
+          <Col span={12}>
             <Menu
               defaultSelectedKeys={[`/${PRIVATE_ROUTE.POSTS}`]}
               selectedKeys={[location.pathname]}
@@ -33,7 +33,7 @@ function Layout({ children }) {
           </Col>
           <Row gutter={30}>
             <Typography.Paragraph style={{ color: "#eee" }}>
-              @{currentUser?.username}
+              {currentUser?.username}
             </Typography.Paragraph>
             <Col>
               <Button onClick={() => setJwtToken(null)}>Logout</Button>
