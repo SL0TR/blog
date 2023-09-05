@@ -22,13 +22,25 @@ This project was bootstrapped with [NestJS]("http://nestjs.com/).
 $ npm install
 ```
 
-### DB Installation
+### Database setup
 
-Install MongoDB from [here]("https://www.mongodb.com/try/download/").
+If you have Docker and Docker Compose, Run the MongoDB service by:
 
-### Setup Environment Variable file
+```bash
+$ docker-compose up -d
+```
+
+If you don't have Docker, Install MongoDB from [here]("https://www.mongodb.com/try/download/") and run the service.
+
+## Environment Variables
 
 Create a `.env` file and populate it (see `.env.example`)
+
+| Key        | What Is It?                           | Default                             |
+| ---------- | ------------------------------------- | ----------------------------------- |
+| DB_URL     | URL of MongoDB                        | "mongodb://localhost:27017/blog_db" |
+| PORT       | Port on which the app will be running | 5500                                |
+| JWT_SECRET | Secret text used to hash JWT tokens   | "secretForBlogApi"                  |
 
 ### Seed the Database
 
@@ -57,8 +69,3 @@ $ npm run build or yarn build
 # production mode
 $ npm run start:prod
 ```
-
-### Demo credentials:
-
-- `Username: 'johndoe'`
-- `Password: 'password'`

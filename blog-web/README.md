@@ -22,6 +22,10 @@ $ npm install
 
 Create a `.env` file and populate it (see `.env.example`)
 
+| Key               | What Is It?     | Default                  |
+| ----------------- | --------------- | ------------------------ |
+| REACT_APP_API_URL | Backend API URL | "http://localhost:5500/" |
+
 ## Running the app
 
 ```bash

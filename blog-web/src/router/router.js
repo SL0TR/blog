@@ -4,7 +4,6 @@ import PrivateRoute from "component/PrivateRoute";
 import Posts from "pages/Posts";
 import NotFoundPage from "pages/NotFound";
 import SignIn from "pages/SignIn";
-import Layout from "component/Layout";
 import { PRIVATE_ROUTE } from "router";
 import Authors from "pages/Authors";
 import CreatePost from "pages/CreatePost";
@@ -27,7 +26,6 @@ function Routes() {
     {
       path: PRIVATE_ROUTE.POSTS,
       component: Posts,
-      exact: true,
     },
     {
       path: PRIVATE_ROUTE.AUTHORS,
@@ -51,17 +49,15 @@ function Routes() {
               <route.component />
             </Route>
           ))}
-          <Layout>
-            {privateRoutes.map((route) => (
-              <PrivateRoute
-                key={route.path}
-                path={`/${route.path}`}
-                exact={route?.exact}
-              >
-                <route.component />
-              </PrivateRoute>
-            ))}
-          </Layout>
+          {privateRoutes.map((route) => (
+            <PrivateRoute
+              key={route.path}
+              path={`/${route.path}`}
+              exact={route?.exact}
+            >
+              <route.component />
+            </PrivateRoute>
+          ))}
           <Route component={NotFoundPage} />
         </Switch>
       </Router>

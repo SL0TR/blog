@@ -10,17 +10,5 @@ services:
     volumes:
       - mongodb_data:/data/db
 
-  app:
-    image: your-image-name:latest
-    ports:
-      - '4000:4000'
-    environment:
-      - PORT=4000
-      - NODE_ENV=development
-      - DB_URL=mongodb://mongodb:27017/blog_db
-    depends_on:
-      - mongodb
-    command: sh -c "npm run seed && npm run start"
-
 volumes:
   mongodb_data:
