@@ -2,8 +2,8 @@
 
 A blog site built with React and Node
 
-<img src="/assets/screenshot-1.png " alt="Posts page" width="48%"/>
-<img src="/assets/screenshot-2.png " alt="Post Editor" width="48%"/>
+<img src="/assets/screenshot-1.png " alt="Posts page" width="45%"/>
+<img src="/assets/screenshot-2.png " alt="Post Editor" width="45%"/>
 
 ## Features
 
