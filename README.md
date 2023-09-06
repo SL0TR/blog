@@ -7,11 +7,11 @@ A blog site built with React and Node
 
 ## Features
 
-- User authentication with **JWT**
-- Create, Edit and View post with **wysiwyg** editor
+- User authentication with JWT
+- Create, Edit, and View posts with Wysiwyg editor
 - View list of posts by all authors
-- View author list and can view post of specific author
-- Server side pagination
+- View author list and view posts of specific author
+- Server-side pagination
 
 ## Application structure preview
 

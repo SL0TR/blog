@@ -26,6 +26,7 @@ function Routes() {
     {
       path: PRIVATE_ROUTE.POSTS,
       component: Posts,
+      exact: true,
     },
     {
       path: PRIVATE_ROUTE.AUTHORS,

@@ -7,7 +7,7 @@ This project was bootstrapped with [NestJS]("http://nestjs.com/).
 - Node
 - NestJS
 - Express
-- MobngoDB
+- MongoDB
 - Mongoose
 - Passport
 - Bcrypt
